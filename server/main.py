@@ -17,7 +17,7 @@ load_dotenv()
 search_tool = TavilySearch(max_results=3)
 tools = [search_tool]
 
-llm = ChatGroq(model="llama-3.1-8b-instant",temperature=0,)
+llm = ChatGroq(model="llama-3.3-70b-versatile",temperature=0,)
 llm = llm.bind_tools(tools)
 
 memory = MemorySaver()
@@ -25,19 +25,24 @@ memory = MemorySaver()
 class State(TypedDict):
     messages: Annotated[List, add_messages]
 
-async def model(state: State) -> AsyncIterator[dict]:
-    full_message = None
+# async def model(state: State) -> AsyncIterator[dict]:
+#     full_message = None
 
-    async for chunk in llm.astream(state["messages"]):
+#     async for chunk in llm.astream(state["messages"]):
 
-        # Merge chunks
-        if full_message is None:
-            full_message = chunk
-        else:
-            full_message += chunk   # IMPORTANT
+#         # Merge chunks
+#         if full_message is None:
+#             full_message = chunk
+#         else:
+#             full_message += chunk   # IMPORTANT
 
-        # Stream chunk to UI
-        yield {"messages": [chunk]}
+#         # Stream chunk to UI
+#         yield {"messages": [chunk]}
+async def model(state: State) -> dict:
+    # Await the ainvoke method, which will still emit streaming events internally
+    # when the graph is executed with graph.astream_events()
+    response = await llm.ainvoke(state["messages"])
+    return {"messages": [response]}
 
 
 async def tool_route(state: State):
@@ -143,8 +148,8 @@ async def generate_chat_responses(message: str, checkpoint_id: Optional[str] = N
 
     async for event in events:
         event_type = event["event"]
-        
-        if event_type == "on_chain_stream" and event.get("name") == "model":
+        # if event_type == "on_chain_stream" and event.get("name") == "model":
+        if event_type == "on_chat_model_stream":
             try:
                 chunk = event["data"].get("chunk") if isinstance(event.get("data"), dict) else None
                 chunk_content = serialise_ai_message_chunk(chunk)

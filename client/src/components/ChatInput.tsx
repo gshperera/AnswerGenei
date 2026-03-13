@@ -2,15 +2,21 @@
 
 import React, { useState } from "react";
 
-export default function ChatInput() {
+interface ChatInputProps {
+    onSubmit?: (message: string) => void;
+}
+
+export default function ChatInput({ onSubmit }: ChatInputProps) {
     const [message, setMessage] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!message.trim()) return;
 
-        // TODO: implement actual submit logic to backend
-        console.log("Submitting:", message);
+        if (onSubmit) {
+            onSubmit(message.trim());
+        }
+
         setMessage("");
     };
 
@@ -23,7 +29,7 @@ export default function ChatInput() {
 
     return (
         <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-black dark:via-black pt-6 pb-6 sm:pb-8">
-            <div className="mx-auto w-full max-w-3xl px-4 sm:px-6">
+            <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
                 <form
                     onSubmit={handleSubmit}
                     className="relative flex items-end w-full overflow-hidden rounded-2xl border border-zinc-200 bg-white/50 shadow-sm backdrop-blur transition-all focus-within:border-zinc-300 focus-within:ring-1 focus-within:ring-zinc-300 dark:border-zinc-800 dark:bg-black/50 dark:focus-within:border-zinc-700 dark:focus-within:ring-zinc-700"
