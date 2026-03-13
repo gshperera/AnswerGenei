@@ -39,10 +39,6 @@ async def model(state: State) -> AsyncIterator[dict]:
         # Stream chunk to UI
         yield {"messages": [chunk]}
 
-    # After streaming completes,
-    # yield the FULL accumulated message
-    if full_message:
-        yield {"messages": [full_message]}
 
 async def tool_route(state: State):
     last_message = state["messages"][-1]
