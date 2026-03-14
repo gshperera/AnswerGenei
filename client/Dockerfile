@@ -3,6 +3,11 @@
 # Contains everything needed to BUILD the app
 FROM node:24-alpine AS builder
 
+# Add this line to accept build argument
+ARG NEXT_PUBLIC_API_URL
+# Set it as environment variable for the build
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 WORKDIR /app
 
 # copy package files and install dependencies
@@ -15,6 +20,10 @@ RUN npm ci
 
 # copy the rest of your code
 COPY . .
+
+# Add debug logging in Dockerfile
+RUN echo "🔧 Docker build - NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL"
+
 # This creates the .next folder with optimized static files
 RUN npm run build
 
@@ -26,6 +35,9 @@ WORKDIR /app
 
 # set to production environment
 ENV NODE_ENV=production
+# Pass the build arg to runtime if needed
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Copy necessary files from the builder stage
 COPY --from=builder /app/public ./public                     
