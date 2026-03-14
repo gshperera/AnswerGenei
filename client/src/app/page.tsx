@@ -39,7 +39,8 @@ export default function Home() {
     setIsGenerating(true);
 
     try {
-      const url = new URL(`http://localhost:8000/chat_stream/${encodeURIComponent(content)}`);
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+      const url = new URL(`${API_URL}/chat_stream/${encodeURIComponent(content)}`);
       if (checkpointId) {
         url.searchParams.append("checkpoint_id", checkpointId);
       }
