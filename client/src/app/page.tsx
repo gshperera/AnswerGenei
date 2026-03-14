@@ -40,9 +40,9 @@ export default function Home() {
 
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL
-      console.log(API_URL)
+      // console.log(API_URL)
       const url = new URL(`${API_URL}/chat_stream/${encodeURIComponent(content)}`);
-      console.log(url)
+      // console.log(url)
       if (checkpointId) {
         url.searchParams.append("checkpoint_id", checkpointId);
       }
