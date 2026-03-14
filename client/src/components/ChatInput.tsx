@@ -28,7 +28,7 @@ export default function ChatInput({ onSubmit }: ChatInputProps) {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-black dark:via-black pt-6 pb-6 sm:pb-8">
+        <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-zinc-50 via-zinc-50 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a] pt-6 pb-6 sm:pb-8">
             <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
                 <form
                     onSubmit={handleSubmit}

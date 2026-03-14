@@ -124,7 +124,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-[calc(100vh-4rem)] flex-col items-center bg-zinc-50 dark:bg-[#0a0a0a] pb-40 pt-4">
+    <main className="flex min-h-[calc(100vh-4rem)] flex-col items-center pb-40 pt-4">
       <div className="w-full max-w-5xl flex-1 px-4 sm:px-6">
         {messages.length === 0 ? (
           <div className="flex h-full min-h-[50vh] flex-col items-center justify-center text-center">

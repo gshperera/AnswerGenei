@@ -61,7 +61,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     {!isUser && message.searches && message.searches.length > 0 && (
                         <div className="flex flex-col gap-3 mb-1 w-full max-w-2xl">
                             {message.searches.map((search, idx) => (
-                                <div key={idx} className="flex flex-col gap-2 rounded-xl bg-white dark:bg-zinc-900 p-4 border border-zinc-200 dark:border-zinc-800 shadow-sm text-left">
+                                <div key={idx} className="flex flex-col gap-2 rounded-xl bg-zinc-50/50 dark:bg-zinc-900/50 p-4 border border-zinc-200 dark:border-zinc-800 shadow-sm text-left">
                                     <div className="flex items-center gap-2 text-sm text-zinc-800 dark:text-zinc-200 font-medium">
                                         <svg className="h-4 w-4 text-[#0ccbe8ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
